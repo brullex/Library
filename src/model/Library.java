@@ -73,9 +73,21 @@ public class Library {
     }
 
     //delete an author
+//    public void deleteAuthor(int authorId) {
+//        authors.removeIf(author -> author.getId() == authorId);
+//        books.removeIf(book -> book.getAuthor().getId() == authorId);
+//    }
     public void deleteAuthor(int authorId) {
-        authors.removeIf(author -> author.getId() == authorId);
-        books.removeIf(book -> book.getAuthor().getId() == authorId);
+        boolean hasBooks = books.stream()
+                .anyMatch(book -> book.getAuthor().getId() == authorId);
+
+        if (hasBooks) {
+            System.out.println("Não é possível remover o autor. Existem livros associados a este autor.");
+        } else {
+            authors.removeIf(author -> author.getId() == authorId);
+            System.out.println("Autor removido com sucesso.");
+        }
     }
+
 
 }

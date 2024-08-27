@@ -1,14 +1,17 @@
+import DAO.AuthorDAO;
 import model.Author;
 import model.Book;
 import model.Library;
 import model.User;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
         Library library = new Library();
+        AuthorDAO authorDAO = new AuthorDAO();
 
         User user1 = new User("Joselina Maranhão", "josymaranhas@gmail.com");
         User user2 = new User("Anna Sophia Pidona", "pidona@gmail.com");
@@ -25,17 +28,35 @@ public class Main {
         library.addBook(book1);
         library.addBook(book2);
 
-        System.out.println("\nLista de Usúarios");
-        for (User user : library.listUsers()){
-            System.out.println(user);
-        }
-        System.out.println("\nLista de Autores");
-        for (Author author : library.listAuthors()){
+        authorDAO.saveAuthor(author1);
+        authorDAO.saveAuthor(author2);
+
+//        library.deleteAuthor(1);
+
+        List<Author> authors = authorDAO.findAll();
+        for (Author author : authors) {
             System.out.println(author);
         }
-        System.out.println("\nLivros disponiveis");
-        for (Book book : library.listAvailableBooks()){
-            System.out.println(book);
+
+        if (library.listUsers().isEmpty()){
+            System.out.println("\nLista de Usúarios vazia...");
+        }else{
+            System.out.println("\nLista de Usúarios");
+            library.listUsers().forEach(System.out::println);
+        }
+
+        if (library.listAuthors().isEmpty()){
+            System.out.println("\nLista de Autores vazia...");
+        }else{
+            System.out.println("\nLista de Autores");
+            library.listAuthors().forEach(System.out::println);
+        }
+
+        if (library.listAvailableBooks().isEmpty()){
+            System.out.println("\n Não a livros disponiveis no momento...");
+        }else{
+            System.out.println("\nLivros disponiveis");
+            library.listAvailableBooks().forEach(System.out::println);
         }
 
         if (library.listBorrowedBooks().isEmpty()){
