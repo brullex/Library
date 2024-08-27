@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Author {
+    private static int idCounter = 1;
     private int id;
     private String name;
     private LocalDate birthDate;
@@ -13,14 +14,14 @@ public class Author {
 
     //construtor padrao
     public Author(int id, String name, LocalDate birthDate) {
-        this.id = id;
+        this.id = idCounter++;
         this.name = name;
         this.birthDate = birthDate;
     }
 
     //construtor que recebe data no formato BR
-    public Author(int id, String name, String birthDateString){
-        this.id = id;
+    public Author(String name, String birthDateString){
+        this.id = idCounter++;
         this.name = name;
         this.birthDate = LocalDate.parse(birthDateString, dateFormat);
     }
@@ -29,9 +30,9 @@ public class Author {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;

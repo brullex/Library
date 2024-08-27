@@ -1,12 +1,13 @@
 package model;
 
-public class Users {
+public class User {
+    public static int idCounter = 1;
     private int id;
     private String name;
     private String email;
 
-    public Users(int id, String name, String email) {
-        this.id = id;
+    public User(String name, String email) {
+        this.id = idCounter++;
         this.name = name;
         this.email = email;
     }
@@ -15,9 +16,9 @@ public class Users {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -37,10 +38,10 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+        return "User{" +
+                "id: " + id +
+                ", Nome: '" + name + '\'' +
+                ", E-mail: '" + email + '\'' +
                 '}';
     }
 }

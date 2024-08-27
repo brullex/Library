@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Book {
+    private static int idCounter = 1;
     private int id;
     private String title;
     private Author author;
@@ -14,8 +15,8 @@ public class Book {
     //formata data no padrão BR
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Book(int id, String title, Author author, boolean isAvailable, LocalDate dateAdded) {
-        this.id = id;
+    public Book(String title, Author author, boolean isAvailable, LocalDate dateAdded) {
+        this.id = idCounter++;
         this.title = title;
         this.author = author;
         this.isAvailable = true;
@@ -24,8 +25,8 @@ public class Book {
     }
 
     //construtor com data no formato BR
-    public Book(int id, String title, Author author, boolean isAvailable, String dateAddedStr) {
-        this.id = id;
+    public Book(String title, Author author, boolean isAvailable, String dateAddedStr) {
+        this.id = idCounter++;
         this.title = title;
         this.author = author;
         this.isAvailable = true;
@@ -42,9 +43,9 @@ public class Book {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getTitle() {
         return title;
