@@ -21,7 +21,17 @@ public class Book {
         this.author = author;
         this.isAvailable = true;
         this.dateAdded = LocalDate.now();
+        this.dateUpdated = dateAdded;
 
+    }
+
+    public Book(int id, String title, Author author, boolean isAvailable, LocalDate dateAdded, LocalDate dateUpdated) {
+        this.id = id;  // Usa o id fornecido em vez de incrementar automaticamente
+        this.title = title;
+        this.author = author;
+        this.isAvailable = isAvailable;
+        this.dateAdded = dateAdded;
+        this.dateUpdated = dateUpdated;
     }
 
     //construtor com data no formato BR
@@ -31,7 +41,7 @@ public class Book {
         this.author = author;
         this.isAvailable = true;
         this.dateAdded = LocalDate.parse(dateAddedStr, dateFormatter);
-
+        this.dateUpdated = dateAdded;
     }
 
     //Método para atualizar dateUpdated com uma string no formato BR
@@ -43,9 +53,9 @@ public class Book {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -85,6 +95,10 @@ public class Book {
 
     public void setDateUpdated(LocalDate dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+
+    public String getAuthorName(){
+        return author.getName();
     }
 
     @Override

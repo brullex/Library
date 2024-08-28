@@ -4,35 +4,39 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Author {
-    private static int idCounter = 1;
-    private int id;
+    private int id;  // O id será controlado pela classe DAO
     private String name;
     private LocalDate birthDate;
 
-    //formata a data para o padrão BR
+    // Formata a data para o padrão BR
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    //construtor padrao
+    // Construtor padrão
     public Author(int id, String name, LocalDate birthDate) {
-        this.id = idCounter++;
+        this.id = id;  // O id é atribuído diretamente, sem incrementar
         this.name = name;
         this.birthDate = birthDate;
     }
 
-    //construtor que recebe data no formato BR
-    public Author(String name, String birthDateString){
-        this.id = idCounter++;
+    // Construtor que recebe data no formato BR
+    public Author(String name, String birthDateString) {
         this.name = name;
         this.birthDate = LocalDate.parse(birthDateString, dateFormat);
     }
 
+    // Construtor para uso interno (ex. criação sem data)
+    public Author(String authorName) {
+        this.name = authorName;
+    }
+
+    // Getters e Setters
     public int getId() {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -52,10 +56,11 @@ public class Author {
 
     @Override
     public String toString() {
+        String birthDateStr = (birthDate != null) ? birthDate.format(dateFormat) : "Data de nascimento não informada";
         return "Autor{" +
                 "id: " + id +
                 ", Nome: '" + name + '\'' +
-                ", Data de Nascimento: " + birthDate.format(dateFormat) +
+                ", Data de Nascimento: " + birthDateStr +
                 '}';
     }
 }
