@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,32 +8,34 @@ public class Library {
     private List<Book> books;
     private List<Author> authors;
     private List<User> users;
+    private List<Borrowing> borrowings;  // Adiciona uma lista para os empréstimos
 
-    //starts the constructor of a class
+    // Construtor da classe
     public Library() {
         this.books = new ArrayList<>();
         this.authors = new ArrayList<>();
         this.users = new ArrayList<>();
+        this.borrowings = new ArrayList<>();  // Inicializa a lista de empréstimos
     }
 
-    //add an book
+    // Adiciona um livro
     public void addBook(Book book) {
         books.add(book);
     }
 
-    //add an author
+    // Adiciona um autor
     public void addAuthor(Author author) {
         authors.add(author);
     }
 
-    //Add an user
+    // Adiciona um usuário
     public void addUser(User user) {
         users.add(user);
     }
 
-    //Create a list of available books
+    // Lista livros disponíveis
     public List<Book> listAvailableBooks() {
-        List<Book> availableBooks  = new ArrayList<Book>();
+        List<Book> availableBooks  = new ArrayList<>();
         for (Book book : books) {
             if (book.isAvailable()) {
                 availableBooks.add(book);
@@ -41,9 +44,9 @@ public class Library {
         return availableBooks;
     }
 
-    //Create a list of borrowed books
-    public List<Book> listBorrowedBooks(){
-        List<Book> borrowedBooks = new ArrayList<Book>();
+    // Lista livros emprestados
+    public List<Book> listBorrowedBooks() {
+        List<Book> borrowedBooks = new ArrayList<>();
         for (Book book : books) {
             if(!book.isAvailable()) {
                 borrowedBooks.add(book);
@@ -52,31 +55,27 @@ public class Library {
         return borrowedBooks;
     }
 
-    //create list of authors
+    // Lista autores
     public List<Author> listAuthors() {
         return new ArrayList<>(authors);
     }
 
-    //list of users
+    // Lista usuários
     public List<User> listUsers() {
         return new ArrayList<>(users);
     }
 
-    //delete an book
+    // Deleta um livro
     public void deleteBook(int bookId) {
         books.removeIf(book -> book.getId() == bookId);
     }
 
-    //delete an user
+    // Deleta um usuário
     public void deleteUser(int userId) {
         users.removeIf(user -> user.getId() == userId);
     }
 
-    //delete an author
-//    public void deleteAuthor(int authorId) {
-//        authors.removeIf(author -> author.getId() == authorId);
-//        books.removeIf(book -> book.getAuthor().getId() == authorId);
-//    }
+    // Deleta um autor
     public void deleteAuthor(int authorId) {
         boolean hasBooks = books.stream()
                 .anyMatch(book -> book.getAuthor().getId() == authorId);
@@ -89,5 +88,32 @@ public class Library {
         }
     }
 
+    // Alugar um livro
+    public void rentBook(User user, Book book) {
+        if (book.isAvailable()) {
+            book.borrow();  // Atualiza o status do livro
+            Borrowing borrowing = new Borrowing(user, book);
+            borrowings.add(borrowing);  // Registra o empréstimo
+            System.out.println("Livro alugado com sucesso!");
+        } else {
+            System.out.println("O livro não está disponível para aluguel.");
+        }
+    }
 
+    // Devolver um livro
+    public void returnBook(Book book) {
+        for (Borrowing borrowing : borrowings) {
+            if (borrowing.getBook().equals(book) && borrowing.getReturnDate() == null) {
+                borrowing.setReturnDate(LocalDate.now());  // Define a data de devolução
+                book.returnBook();  // Atualiza o status do livro para disponível
+                System.out.println("Livro devolvido com sucesso!");
+                break;
+            }
+        }
+    }
+
+    // Lista de todos os empréstimos
+    public List<Borrowing> listBorrowings() {
+        return new ArrayList<>(borrowings);
+    }
 }

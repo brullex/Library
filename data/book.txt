@@ -1,5 +1,2 @@
-1,Senhor dos Aneis,Bruno Teste,true,1980-05-20,1980-05-20
-3,Senhor dos Aneis,Bruno Teste,true,1980-05-20,1980-05-20
-4,Harry Potter,J.K Rowlling,true,1982-05-20,1982-05-20
-5,Senhor dos Aneis,Bruno Teste,true,1980-05-20,1980-05-20
-6,Harry Potter,J.K Rowlling,true,1982-05-20,1982-05-20
+2,O Hobbit,J.R.R. Tolkien,false,2024-08-28,2024-08-28
+1,O Hobbit,J.R.R. Tolkien,true,2024-08-28,2024-08-28

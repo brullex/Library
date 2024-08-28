@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BookDAO {
     private static final String FILE_PATH_BOOK = "data/book.txt";
     private static int idCounter = 1;
@@ -20,6 +19,7 @@ public class BookDAO {
             idCounter = lastId + 1;
         }
     }
+
     private int getLastId() {
         int lastId = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_BOOK))) {
@@ -37,11 +37,10 @@ public class BookDAO {
                 }
             }
         } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler o arquivo de livros: " + e.getMessage());
         }
         return lastId;
     }
-
 
     private void DataDirectoryExists() {
         File directory = new File("data");
@@ -52,9 +51,9 @@ public class BookDAO {
 
     public void saveBook(Book book) {
         DataDirectoryExists();
-        List<Book> books =  findAll();
+        List<Book> books = findAll();
         book.setId(idCounter++);
-        books.add(book);
+        books.add(0, book);
         saveAll(books);
     }
 
@@ -62,12 +61,14 @@ public class BookDAO {
         DataDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_BOOK))) {
             for (Book book : books) {
-                writer.write(book.getId() + "," + book.getTitle() + "," + book.getAuthorName() + ","  + book.isAvailable() + "," + book.getDateAdded() + "," + book.getDateUpdated() + "\n");
+                writer.write(book.getId() + "," + book.getTitle() + "," + book.getAuthor().getName() + "," +
+                        book.isAvailable() + "," + book.getDateAdded() + "," + book.getDateUpdated() + "\n");
             }
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar o arquivo de livros: " + e.getMessage());
         }
     }
+
     public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_BOOK))) {
@@ -90,11 +91,10 @@ public class BookDAO {
                 }
             }
         } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler o arquivo de livros: " + e.getMessage());
         }
         return books;
     }
-
 
     // Método para encontrar um livro por ID
     public Book findById(int id) {
@@ -104,10 +104,10 @@ public class BookDAO {
                 .orElse(null);
     }
 
-    // Método para remover um livro
     public void delete(int id) {
         List<Book> books = findAll();
         books.removeIf(book -> book.getId() == id);
         saveAll(books);
     }
+
 }

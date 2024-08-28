@@ -1,6 +1,0 @@
-1,Bruno Teste,1986-05-19
-2,J.K Rowlling,1959-05-19
-3,Bruno Teste,1986-05-19
-4,J.K Rowlling,1959-05-19
-5,Bruno Teste,1986-05-19
-6,J.K Rowlling,1959-05-19

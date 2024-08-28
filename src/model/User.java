@@ -1,24 +1,32 @@
 package model;
 
 public class User {
-    public static int idCounter = 1;
     private int id;
     private String name;
     private String email;
 
-    public User(String name, String email) {
-        this.id = idCounter++;
+    // Construtor que aceita todos os parâmetros
+    public User(int id, String name, String email) {
+        this.id = id;
         this.name = name;
         this.email = email;
     }
 
+    // Construtor que aceita apenas nome e email (id será gerado automaticamente)
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+
+    // Getters e Setters
     public int getId() {
         return id;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -39,9 +47,9 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id: " + id +
-                ", Nome: '" + name + '\'' +
-                ", E-mail: '" + email + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

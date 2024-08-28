@@ -12,21 +12,12 @@ public class Book {
     private LocalDate dateAdded;
     private LocalDate dateUpdated;
 
-    //formata data no padrão BR
+    // Formata a data no padrão BR
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Book(String title, Author author, boolean isAvailable, LocalDate dateAdded) {
-        this.id = idCounter++;
-        this.title = title;
-        this.author = author;
-        this.isAvailable = true;
-        this.dateAdded = LocalDate.now();
-        this.dateUpdated = dateAdded;
-
-    }
-
+    // Construtor completo para recuperação de dados do arquivo
     public Book(int id, String title, Author author, boolean isAvailable, LocalDate dateAdded, LocalDate dateUpdated) {
-        this.id = id;  // Usa o id fornecido em vez de incrementar automaticamente
+        this.id = id;
         this.title = title;
         this.author = author;
         this.isAvailable = isAvailable;
@@ -34,21 +25,32 @@ public class Book {
         this.dateUpdated = dateUpdated;
     }
 
-    //construtor com data no formato BR
+    // Construtor simplificado para criar novos livros
     public Book(String title, Author author, boolean isAvailable, String dateAddedStr) {
         this.id = idCounter++;
         this.title = title;
         this.author = author;
-        this.isAvailable = true;
+        this.isAvailable = isAvailable;
         this.dateAdded = LocalDate.parse(dateAddedStr, dateFormatter);
-        this.dateUpdated = dateAdded;
+        this.dateUpdated = this.dateAdded;
     }
 
-    //Método para atualizar dateUpdated com uma string no formato BR
-    public void dateUpdateted(String dateUpdatedStr) {
-        this.dateUpdated = LocalDate.parse(dateUpdatedStr, dateFormatter);
+    // Métodos de aluguel e devolução
+    public void borrow() {
+        if (isAvailable) {
+            isAvailable = false;
+            dateUpdated = LocalDate.now();
+        } else {
+            System.out.println("O livro não está disponível para aluguel.");
+        }
     }
 
+    public void returnBook() {
+        isAvailable = true;
+        dateUpdated = LocalDate.now();
+    }
+
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -77,39 +79,23 @@ public class Book {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
     public LocalDate getDateAdded() {
         return dateAdded;
-    }
-
-    public void setDateAdded(LocalDate dateAdded) {
-        this.dateAdded = dateAdded;
     }
 
     public LocalDate getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(LocalDate dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public String getAuthorName(){
-        return author.getName();
-    }
-
     @Override
     public String toString() {
-        return "Livro{" +
-                "id: " + id +
-                ", Titulo: '" + title + '\'' +
-                ", Autor: " + author +
-                ", Disponivel: " + (isAvailable ? "Sim" : "Não")+
-                ", Data de Entrada: " + dateAdded +
-                ", Data Ultima Atualização: " + (dateUpdated == null ? "Sem Movimento" : dateAdded.format(dateFormatter)) +
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author=" + author.getName() +
+                ", isAvailable=" + (isAvailable ? "Sim" : "Não") +
+                ", dateAdded=" + dateAdded.format(dateFormatter) +
+                ", dateUpdated=" + dateUpdated.format(dateFormatter) +
                 '}';
     }
 }

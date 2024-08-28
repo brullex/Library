@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDAO {
-    private static final String FILE_PATH_AUTHOR = "data/authors.txt";
+    private static final String FILE_PATH_AUTHOR = "data/author.txt";
     private static int idCounter = 1;
 
     public AuthorDAO() {
@@ -25,6 +25,13 @@ public class AuthorDAO {
         if (!directory.exists()) {
             directory.mkdirs(); // Cria o diretório se não existir
         }
+    }
+
+    public Author findById(int id) {
+        return findAll().stream()
+                .filter(author -> author.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     private int getLastId() {
@@ -45,22 +52,20 @@ public class AuthorDAO {
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("ID inválido na linha: " + line);
-                        // Continue a leitura sem interromper
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler o arquivo de autores: " + e.getMessage());
         }
         return lastId;
     }
-
 
     public void saveAuthor(Author author) {
         DataDirectoryExists();
         author.setId(idCounter++); // Define o ID do autor com o valor atualizado
         List<Author> authors = findAll(); // Carrega a lista de autores existentes
-        authors.add(author); // Adiciona o novo autor à lista
+        authors.add(0, author); // Adiciona o novo autor à lista
         saveAll(authors); // Salva toda a lista no arquivo
     }
 
@@ -70,8 +75,8 @@ public class AuthorDAO {
             for (Author author : authors) {
                 writer.write(author.getId() + "," + author.getName() + "," + author.getBirthDate() + "\n");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar o arquivo de autores: " + e.getMessage());
         }
     }
 
@@ -93,13 +98,19 @@ public class AuthorDAO {
 
                         authors.add(new Author(id, name, birthDate));
                     } catch (NumberFormatException | DateTimeParseException e) {
-                        System.out.println("Erro ao processar a linha: " + line + " - " + e.getMessage());
+                        System.err.println("Erro ao processar a linha: " + line + " - " + e.getMessage());
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler o arquivo de autores: " + e.getMessage());
         }
         return authors;
     }
+    public void delete(int id) {
+        List<Author> authors = findAll();
+        authors.removeIf(author -> author.getId() == id);
+        saveAll(authors);
+    }
+
 }
