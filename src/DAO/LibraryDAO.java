@@ -9,9 +9,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* Classe responsavel por persistir e manipular os dados no library.txt
+* esse dados são um historico das transações dos livros.
+*/
 public class LibraryDAO {
     private static final String FILE_PATH_LIBRARY = "data/library.txt";
 
+
+    // Método verifica se o diretorio data existe, se não existe ele cria.
     private void dataDirectoryExists() {
         File directory = new File("data");
         if (!directory.exists()) {
@@ -19,6 +25,10 @@ public class LibraryDAO {
         }
     }
 
+    /*
+    * Método para salvar emprestimos de livros, persiste esses dados em um arquivo .txt
+    * incluindo o usuário, o livro, a data de empréstimo e a data de devolução, se disponível.
+    */
     public void saveBorrowing(Borrowing borrowing) {
         dataDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_LIBRARY, true))) {
@@ -30,6 +40,11 @@ public class LibraryDAO {
         }
     }
 
+    /*
+    * Método que recupera todos os no arquivo de historico library.txt
+    * ao ler o arquivo recria os objetos Borrowing, fazendo associação aos
+    * objetos User e Book
+    */
     public List<Borrowing> findAllBorrowings(UserDAO userDAO, BookDAO bookDAO) {
         List<Borrowing> borrowings = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_LIBRARY))) {
@@ -45,7 +60,6 @@ public class LibraryDAO {
                     LocalDate borrowDate = LocalDate.parse(data[2].trim());
                     String returnDateStr = data[3].trim();
 
-                    // Usando userDAO e bookDAO passados como parâmetros
                     User user = userDAO.findById(userId);
                     Book book = bookDAO.findById(bookId);
 

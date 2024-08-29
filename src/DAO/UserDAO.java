@@ -10,6 +10,7 @@ public class UserDAO {
     private static final String FILE_PATH_USER = "data/user.txt";
     private static int idCounter = 1;
 
+    // Este construtor é responsável por inicializar o contador de IDs (idCounter) com base no maior ID
     public UserDAO() {
         int lastId = getLastId();
         if (lastId > 0) {
@@ -17,12 +18,15 @@ public class UserDAO {
         }
     }
 
+    // Verifica se o diretorio data existe, se não, cria o mesmo.
     private void DataDirectoryExists() {
         File directory = new File("data");
         if (!directory.exists()) {
             directory.mkdirs();
         }
     }
+
+    // Método para procurar um autor pelo ID
     public User findById(int id) {
         return findAll().stream()
                 .filter(user -> user.getId() == id)
@@ -30,6 +34,9 @@ public class UserDAO {
                 .orElse(null);
     }
 
+    /* Este método garante que os ids gerados para autores sejam unicos e sequenciais
+    *  mesmo que o programa seja finalizado ou reiniciado.
+    */
     private int getLastId() {
         int lastId = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_USER))) {
@@ -57,6 +64,7 @@ public class UserDAO {
         return lastId;
     }
 
+    // Salva um autor
     public void saveUser(User user) {
         DataDirectoryExists();
         user.setId(idCounter++);
@@ -65,6 +73,10 @@ public class UserDAO {
         saveAll(users);
     }
 
+    /*
+     * Salva a lista de user no arquivo .txt
+     * sobrescreve o arquivo existente com os dados da lista de usuarios recuperados.
+     */
     private void saveAll(List<User> users) {
         DataDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_USER))) {
@@ -76,6 +88,10 @@ public class UserDAO {
         }
     }
 
+    /*
+    * Método para carregar todos os usuários do arquivo user.txt linha a linha
+    * e reconstroi o objeto User, retornando uma lista de todos usuários.
+    */
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_USER))) {
@@ -103,7 +119,7 @@ public class UserDAO {
         }
         return users;
     }
-
+    // Deleta um usuário ID
     public void delete(int id) {
         List<User> users = findAll();
         users.removeIf(user -> user.getId() == id);

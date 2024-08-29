@@ -20,6 +20,7 @@ public class Main {
 
         boolean running = true;
 
+        // Menu Principal do sistema.
         while (running) {
             System.out.println("\n--- Menu Principal ---");
             System.out.println("1. Usuários");
@@ -51,7 +52,9 @@ public class Main {
 
         scanner.close();
     }
-
+    /* Método para gerenciar as operações relacionadas aos usuários.
+    *  exibe um menu para que o usuário possa escolher entre cadastrar, listar ou excluir usuários.
+    */
     private static void manageUsers(Scanner scanner, UserDAO userDAO) {
         boolean userMenu = true;
 
@@ -94,6 +97,9 @@ public class Main {
         }
     }
 
+    /* Método para gerenciar as operações relacionadas aos autores.
+    *  exibe um menu para que o usuário possa escolher entre cadastrar, listar ou excluir autores.
+    */
     private static void manageAuthors(Scanner scanner, AuthorDAO authorDAO) {
         boolean authorMenu = true;
 
@@ -136,6 +142,9 @@ public class Main {
         }
     }
 
+    /* Método para gerenciar as operações relacionadas aos livros.
+    *  exibe um menu para que o usuário possa escolher entre cadastrar, listar, excluir livros e realizar operações de empréstimo.
+    */
     private static void manageBooks(Scanner scanner, BookDAO bookDAO, AuthorDAO authorDAO, LibraryDAO libraryDAO, UserDAO userDAO) {
         boolean bookMenu = true;
 

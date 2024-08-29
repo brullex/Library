@@ -88,7 +88,7 @@ public class Library {
         }
     }
 
-    // Alugar um livro
+    // Método para alugar um livro
     public void rentBook(User user, Book book) {
         if (book.isAvailable()) {
             book.borrow();  // Atualiza o status do livro
@@ -100,7 +100,7 @@ public class Library {
         }
     }
 
-    // Devolver um livro
+    // Método para devolver um livro
     public void returnBook(Book book) {
         for (Borrowing borrowing : borrowings) {
             if (borrowing.getBook().equals(book) && borrowing.getReturnDate() == null) {

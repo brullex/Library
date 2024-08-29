@@ -12,8 +12,8 @@ public class BookDAO {
     private static final String FILE_PATH_BOOK = "data/book.txt";
     private static int idCounter = 1;
 
+    // Inicializa idCounter com base no maior ID existente
     public BookDAO() {
-        // Inicializa idCounter com base no maior ID existente
         int lastId = getLastId();
         if (lastId > 0) {
             idCounter = lastId + 1;
@@ -57,6 +57,10 @@ public class BookDAO {
         saveAll(books);
     }
 
+    /*
+     * Salva a lista de Books no arquivo .txt
+     * sobrescreve o arquivo existente com os dados da lista de books recuperada.
+     */
     private void saveAll(List<Book> books) {
         DataDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_BOOK))) {
@@ -69,6 +73,10 @@ public class BookDAO {
         }
     }
 
+    /*
+     * Método para carregar todos os livros do arquivo book.txt linha a linha
+     * e reconstroi o objeto Book, retornando uma lista de todos livros
+     */
     public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_BOOK))) {
@@ -103,7 +111,7 @@ public class BookDAO {
                 .findFirst()
                 .orElse(null);
     }
-
+    // Deleta um livro pelo ID
     public void delete(int id) {
         List<Book> books = findAll();
         books.removeIf(book -> book.getId() == id);

@@ -8,10 +8,14 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Classe responsavel por persistir e manipular os dados no author.txt
+ */
 public class AuthorDAO {
     private static final String FILE_PATH_AUTHOR = "data/author.txt";
     private static int idCounter = 1;
 
+    // Este construtor é responsável por inicializar o contador de IDs (idCounter) com base no maior ID
     public AuthorDAO() {
         // Inicializa idCounter com base no maior ID existente
         int lastId = getLastId();
@@ -19,7 +23,7 @@ public class AuthorDAO {
             idCounter = lastId + 1;
         }
     }
-
+    // Verifica se o diretorio data existe, se não, cria o mesmo.
     private void DataDirectoryExists() {
         File directory = new File("data");
         if (!directory.exists()) {
@@ -27,6 +31,7 @@ public class AuthorDAO {
         }
     }
 
+    // Método para procurar um autor pelo ID
     public Author findById(int id) {
         return findAll().stream()
                 .filter(author -> author.getId() == id)
@@ -34,6 +39,9 @@ public class AuthorDAO {
                 .orElse(null);
     }
 
+    /* Este método garante que os ids gerados para autores sejam unicos e sequenciais
+    *  mesmo que o programa seja finalizado ou reiniciado.
+    */
     private int getLastId() {
         int lastId = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_AUTHOR))) {
@@ -61,14 +69,19 @@ public class AuthorDAO {
         return lastId;
     }
 
+    // Salva um autor
     public void saveAuthor(Author author) {
         DataDirectoryExists();
-        author.setId(idCounter++); // Define o ID do autor com o valor atualizado
-        List<Author> authors = findAll(); // Carrega a lista de autores existentes
-        authors.add(0, author); // Adiciona o novo autor à lista
-        saveAll(authors); // Salva toda a lista no arquivo
+        author.setId(idCounter++);
+        List<Author> authors = findAll();
+        authors.add(0, author);
+        saveAll(authors);
     }
 
+    /*
+     * Salva a lista de autores no arquivo .txt
+     * sobrescreve o arquivo existente com os dados da lista de autores recuperados.
+     */
     private void saveAll(List<Author> authors) {
         DataDirectoryExists();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_AUTHOR))) {
@@ -80,6 +93,11 @@ public class AuthorDAO {
         }
     }
 
+
+    /*
+     * Método para carregar todos os autores do arquivo author.txt linha a linha
+     * e reconstroi o objeto Author, retornando uma lista de todos autores.
+     */
     public List<Author> findAll() {
         List<Author> authors = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH_AUTHOR))) {
@@ -107,6 +125,8 @@ public class AuthorDAO {
         }
         return authors;
     }
+
+    // Deleta autor pelo ID
     public void delete(int id) {
         List<Author> authors = findAll();
         authors.removeIf(author -> author.getId() == id);
