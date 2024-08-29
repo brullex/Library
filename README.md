@@ -1,4 +1,4 @@
-# Antes de tudo, quero informar esse README foi feito com ajuda de IA.
+## Antes de tudo, quero informar esse README foi feito com ajuda de IA.
 
 # Sistema é um exercicio do curso de Fundamentos Java da escola Rocketseat.
 # [Proposta do Exercicio]([https://www.apsesoft.com.br](https://efficient-sloth-d85.notion.site/Desafio-Sistema-de-Livraria-5af3421be6384b4e87dcff80897e9efb))
