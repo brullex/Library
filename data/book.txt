@@ -1,2 +1,0 @@
-2,O Hobbit,J.R.R. Tolkien,false,2024-08-28,2024-08-28
-1,O Hobbit,J.R.R. Tolkien,true,2024-08-28,2024-08-28
