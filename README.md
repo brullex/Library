@@ -1,5 +1,3 @@
-## Antes de tudo, quero informar esse README foi feito com ajuda de IA.
-
 ## Disclaimer:
   Após ler e pensar um pouco sobre a proposta do exercício, eu resolvi implementar o sistema de acordo com o que foi ensinado no curso até o momento. "por isso banco de dados em .txt" a medida que ia criando, sentia necessidade 
   aplicar melhorias ao sistema, chegou a um ponto em que meu conhecimento de apenas duas semanas em Java não era suficiente, então teve partir para pesquisas fora da plataforma da Rocketseat, isso inclui o ChatGPT que é uma excelente
