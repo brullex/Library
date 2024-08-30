@@ -21,7 +21,7 @@ public class LibraryDAO {
     private void dataDirectoryExists() {
         File directory = new File("data");
         if (!directory.exists()) {
-            directory.mkdirs(); // Cria o diretório se não existir
+            directory.mkdirs();
         }
     }
 

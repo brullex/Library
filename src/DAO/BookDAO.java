@@ -59,7 +59,7 @@ public class BookDAO {
 
     /*
      * Salva a lista de Books no arquivo .txt
-     * sobrescreve o arquivo existente com os dados da lista de books recuperada.
+     * sobrescreve o arquivo existente com os dados da lista de books recuperada
      */
     private void saveAll(List<Book> books) {
         DataDirectoryExists();

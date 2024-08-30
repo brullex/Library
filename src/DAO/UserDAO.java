@@ -75,7 +75,7 @@ public class UserDAO {
 
     /*
      * Salva a lista de user no arquivo .txt
-     * sobrescreve o arquivo existente com os dados da lista de usuarios recuperados.
+     * sobrescreve o arquivo existente com os dados da lista de usuarios recuperados
      */
     private void saveAll(List<User> users) {
         DataDirectoryExists();

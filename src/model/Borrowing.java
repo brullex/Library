@@ -13,7 +13,7 @@ public class Borrowing {
         this.user = user;
         this.book = book;
         this.borrowDate = LocalDate.now();  // Define a data atual como data de empréstimo
-        this.returnDate = null;  // A data de devolução começa como null, pois o livro ainda não foi devolvido
+        this.returnDate = null;  // A data de devolução começa como null, pois o livro ainda não foi devolvido.
     }
 
     // Getters e Setters

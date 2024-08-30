@@ -25,7 +25,7 @@ public class Book {
         this.dateUpdated = dateUpdated;
     }
 
-    // Construtor simplificado para criar novos livros
+    // Construtor simplificado para criar novos livros.
     public Book(String title, Author author, boolean isAvailable, String dateAddedStr) {
         this.id = idCounter++;
         this.title = title;

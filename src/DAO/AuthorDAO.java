@@ -80,7 +80,7 @@ public class AuthorDAO {
 
     /*
      * Salva a lista de autores no arquivo .txt
-     * sobrescreve o arquivo existente com os dados da lista de autores recuperados.
+     * sobrescreve o arquivo existente com os dados da lista de autores recuperados
      */
     private void saveAll(List<Author> authors) {
         DataDirectoryExists();

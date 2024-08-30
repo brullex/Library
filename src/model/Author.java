@@ -13,7 +13,7 @@ public class Author {
 
     // Construtor padrão
     public Author(int id, String name, LocalDate birthDate) {
-        this.id = id;  // O id é atribuído diretamente, sem incrementar
+        this.id = id;  // O id é atribuído diretamente, sem incrementar.
         this.name = name;
         this.birthDate = birthDate;
     }

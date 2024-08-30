@@ -142,7 +142,7 @@ public class Main {
         }
     }
 
-    /* Método para gerenciar as operações relacionadas aos livros.
+    /* Método para gerenciar as operações relacionadas aos livros
     *  exibe um menu para que o usuário possa escolher entre cadastrar, listar, excluir livros e realizar operações de empréstimo.
     */
     private static void manageBooks(Scanner scanner, BookDAO bookDAO, AuthorDAO authorDAO, LibraryDAO libraryDAO, UserDAO userDAO) {

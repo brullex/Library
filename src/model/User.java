@@ -12,7 +12,7 @@ public class User {
         this.email = email;
     }
 
-    // Construtor que aceita apenas nome e email (id será gerado automaticamente)
+    // Construtor que aceita apenas nome e email (id será gerado automaticamente pela classe DAO)
     public User(String name, String email) {
         this.name = name;
         this.email = email;

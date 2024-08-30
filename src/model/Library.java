@@ -8,14 +8,14 @@ public class Library {
     private List<Book> books;
     private List<Author> authors;
     private List<User> users;
-    private List<Borrowing> borrowings;  // Adiciona uma lista para os empréstimos
+    private List<Borrowing> borrowings;
 
     // Construtor da classe
     public Library() {
         this.books = new ArrayList<>();
         this.authors = new ArrayList<>();
         this.users = new ArrayList<>();
-        this.borrowings = new ArrayList<>();  // Inicializa a lista de empréstimos
+        this.borrowings = new ArrayList<>();
     }
 
     // Adiciona um livro
